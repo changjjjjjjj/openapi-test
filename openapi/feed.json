@@ -1,0 +1,704 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Balbalm Feed Backend",
+    "description": "backend for balbalm feed service",
+    "version": "1.0-beta"
+  },
+  "paths": {
+    "/feed/posts": {
+      "get": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "List Posts",
+        "description": "특정 유저의 전체 게시물 리스팅 API\n:param user_id:\n:param token:\n:param db:\n:return:",
+        "operationId": "list_posts_feed_posts_get",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "User Id"
+            },
+            "name": "user_id",
+            "in": "query"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/PostResponse"
+                  },
+                  "type": "array",
+                  "title": "Response List Posts Feed Posts Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Create Post",
+        "description": "게시물 생성 API\n:param post:\n:param token:\n:param db:\n:return:",
+        "operationId": "create_post_feed_posts_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/posts/{post_id}": {
+      "put": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Update Post",
+        "description": "본인 게시물 수정 API\n:param post:\n:param token:\n:return:",
+        "operationId": "update_post_feed_posts__post_id__put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PostUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Delete Post",
+        "description": "게시물 삭제 API\n:param post_id:\n:param token:\n:return:",
+        "operationId": "delete_post_feed_posts__post_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Post Id"
+            },
+            "name": "post_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/posts/{post_id}/likes": {
+      "post": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Like Post",
+        "description": "게시물 좋아요 API\n:param post_id:\n:param token:\n:return:",
+        "operationId": "like_post_feed_posts__post_id__likes_post",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Post Id"
+            },
+            "name": "post_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Unlike Post",
+        "description": "게시물 좋아요 취소 API\n:param post_id:\n:param token:\n:return:",
+        "operationId": "unlike_post_feed_posts__post_id__likes_delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "title": "Post Id"
+            },
+            "name": "post_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/notifications": {
+      "get": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Get Notifications",
+        "description": "전체 알림 리스트\n:param token:\n:return:",
+        "operationId": "get_notifications_feed_notifications_get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/NotiResponse"
+                  },
+                  "type": "array",
+                  "title": "Response Get Notifications Feed Notifications Get"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Delete All Notifications",
+        "description": "전체 알림 삭제\n:param token:\n:return:",
+        "operationId": "delete_all_notifications_feed_notifications_delete",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    },
+    "/feed/notifications/{notification_id}": {
+      "delete": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Delete Notification",
+        "description": "특정 알림 삭제\n:param notification_id:\n:param token:\n:return:",
+        "operationId": "delete_notification_feed_notifications__notification_id__delete",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Notification Id"
+            },
+            "name": "notification_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/notifications/{notification_id}/read": {
+      "put": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Mark Notification As Read",
+        "description": "특정 알림을 읽음 상태로 변경\n:param notification_id:\n:param token:\n:return:",
+        "operationId": "mark_notification_as_read_feed_notifications__notification_id__read_put",
+        "parameters": [
+          {
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Notification Id"
+            },
+            "name": "notification_id",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/feed/notifications/read_all": {
+      "put": {
+        "tags": [
+          "Feed",
+          "Feed"
+        ],
+        "summary": "Mark All Notifications As Read",
+        "description": "전체 알림을 읽음 상태로 변경\n:param token:\n:return:",
+        "operationId": "mark_all_notifications_as_read_feed_notifications_read_all_put",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "Like": {
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "title": "User Id"
+          },
+          "nickname": {
+            "type": "string",
+            "title": "Nickname"
+          },
+          "profile_image_url": {
+            "type": "string",
+            "maxLength": 2083,
+            "minLength": 1,
+            "format": "uri",
+            "title": "Profile Image Url"
+          }
+        },
+        "type": "object",
+        "required": [
+          "user_id",
+          "nickname"
+        ],
+        "title": "Like",
+        "description": "좋아요 모델"
+      },
+      "NotiResponse": {
+        "properties": {
+          "noti_type": {
+            "$ref": "#/components/schemas/NotiType"
+          },
+          "is_read": {
+            "type": "boolean",
+            "title": "Is Read",
+            "default": false
+          },
+          "noti_detail": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/NotiTypeFeed"
+              },
+              {
+                "$ref": "#/components/schemas/NotiTypeMission"
+              }
+            ],
+            "title": "Noti Detail"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Created At"
+          }
+        },
+        "type": "object",
+        "required": [
+          "noti_type",
+          "noti_detail",
+          "created_at"
+        ],
+        "title": "NotiResponse",
+        "description": "알림 모델"
+      },
+      "NotiType": {
+        "type": "string",
+        "enum": [
+          "mission",
+          "feed"
+        ],
+        "title": "NotiType",
+        "description": "알림 타입"
+      },
+      "NotiTypeFeed": {
+        "properties": {
+          "feed_id": {
+            "type": "integer",
+            "title": "Feed Id"
+          },
+          "likes": {
+            "items": {
+              "$ref": "#/components/schemas/Like"
+            },
+            "type": "array",
+            "title": "Likes"
+          }
+        },
+        "type": "object",
+        "required": [
+          "feed_id"
+        ],
+        "title": "NotiTypeFeed",
+        "description": "피드 알림 모델"
+      },
+      "NotiTypeMission": {
+        "properties": {
+          "mission": {
+            "type": "string",
+            "title": "Mission"
+          },
+          "is_success": {
+            "type": "boolean",
+            "title": "Is Success"
+          }
+        },
+        "type": "object",
+        "required": [
+          "mission",
+          "is_success"
+        ],
+        "title": "NotiTypeMission",
+        "description": "미션 알림 모델"
+      },
+      "PostCreate": {
+        "properties": {
+          "image_url": {
+            "items": {
+              "type": "string",
+              "maxLength": 2083,
+              "minLength": 1,
+              "format": "uri"
+            },
+            "type": "array",
+            "title": "Image Url"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "image_url"
+        ],
+        "title": "PostCreate",
+        "description": "게시물 생성 모델"
+      },
+      "PostResponse": {
+        "properties": {
+          "post_id": {
+            "type": "integer",
+            "title": "Post Id"
+          },
+          "image_urls": {
+            "items": {
+              "type": "string",
+              "maxLength": 2083,
+              "minLength": 1,
+              "format": "uri"
+            },
+            "type": "array",
+            "title": "Image Urls"
+          },
+          "content": {
+            "type": "string",
+            "title": "Content"
+          },
+          "uploaded_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Uploaded At"
+          },
+          "liked_by": {
+            "items": {
+              "$ref": "#/components/schemas/Like"
+            },
+            "type": "array",
+            "title": "Liked By"
+          }
+        },
+        "type": "object",
+        "required": [
+          "post_id",
+          "image_urls",
+          "uploaded_at",
+          "liked_by"
+        ],
+        "title": "PostResponse",
+        "description": "게시물 리스폰스 모델"
+      },
+      "PostUpdate": {
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "Content"
+          }
+        },
+        "type": "object",
+        "required": [
+          "content"
+        ],
+        "title": "PostUpdate",
+        "description": "게시물 수정 모델"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      }
+    }
+  }
+}
