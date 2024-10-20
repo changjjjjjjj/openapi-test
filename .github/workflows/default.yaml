@@ -33,6 +33,6 @@ jobs:
             },
             {
               "openapi-json-filepath": "openapi/feed.json",
-              "api-doc-filepath": "fedd.html"
+              "api-doc-filepath": "feed.html"
             }]
           api-docs-dir: docs
